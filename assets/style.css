@@ -975,7 +975,23 @@ a { color: inherit; text-decoration: none; transition: color .2s ease; }
   color: var(--on-navy);
 }
 
-.cta__actions { margin-top: 34px; }
+.cta__actions {
+  margin-top: 34px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+.cta__actions .btn { flex: 0 1 auto; }
+@media (max-width: 479.98px) {
+  .cta__actions { flex-direction: column; align-items: stretch; }
+}
+
+.contactnote {
+  margin-top: 18px;
+  font-size: 13px;
+  color: var(--on-navy-dim);
+}
 
 .mailrow {
   margin-top: 24px;
