@@ -508,7 +508,7 @@ a { color: inherit; text-decoration: none; transition: color .2s ease; }
 }
 @media (min-width: 640px) { .stat b { font-size: 30px; } }
 
-.stat span {
+.stat > span {
   display: block;
   margin-top: 8px;
   font-size: 12.5px;
@@ -1323,7 +1323,13 @@ html[lang="ko"] body {
 }
 
 /* stat band: control where the large label wraps (breaks only between the units) */
-.stat b span { display: inline-block; }
+.stat b span {
+  display: inline-block;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+}
 
 /* taglist without chips: tighten the gap between heading and message */
 .taglist h3 + .taglist__foot { margin-top: 8px; }
