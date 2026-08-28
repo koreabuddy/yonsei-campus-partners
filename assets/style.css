@@ -1298,3 +1298,9 @@ html[lang="ja"] h4 {
 @media (max-width: 639.98px) {
   html[lang="ja"] .hero h1 { font-size: 26px; line-height: 1.45; }
 }
+
+/* Korean body text: never break inside a word unit (어절) */
+html[lang="ko"] body {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
