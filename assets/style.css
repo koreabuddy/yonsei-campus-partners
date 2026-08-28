@@ -1289,7 +1289,7 @@ html[lang="ja"] h1,
 html[lang="ja"] h2,
 html[lang="ja"] h3,
 html[lang="ja"] h4 {
-  word-break: normal;
+  word-break: keep-all;
   line-break: strict;
   overflow-wrap: break-word;
 }
@@ -1320,4 +1320,37 @@ html[lang="ko"] body {
   letter-spacing: .06em;
   color: rgba(255, 255, 255, .5);
   white-space: nowrap;
+}
+
+/* stat band: control where the large label wraps (breaks only between the units) */
+.stat b span { display: inline-block; }
+
+/* taglist without chips: tighten the gap between heading and message */
+.taglist h3 + .taglist__foot { margin-top: 8px; }
+.stat > span span { display: inline-block; }
+
+/* ---------- line-break quality ---------- */
+
+/* Japanese: only break at the phrase boundaries marked by <wbr> at runtime.
+   overflow-wrap is the last-resort fallback for a phrase longer than the line. */
+html[lang="ja"] body {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
+}
+/* grid/flex children must be allowed to shrink below their content width */
+.feature, .feature__text, .feature__visual, .case, .case p,
+.oper__body li, .oper__body li > span, .plan, .stat, .step,
+.panel, .panel__grid, .pcard, .oper, .oper__body, .facts,
+.reason, .checkitems li, .checks li, .plan__items li { min-width: 0; }
+
+/* Balance short multi-line text (headings, labels) and avoid orphan last lines. */
+h1, h2, h3, h4,
+.stat b, .plan__name, .case p, .pcard b, .checks li, .tag, .badge {
+  text-wrap: balance;
+}
+.hero__lead, .section__lead, .feature__desc, .reason p, .faq__a,
+.plan__desc, .plans__foot, .taglist__foot, .cta p, .footer__desc,
+.oper__body li, .legal__body p, .checkbox-panel > p, .step p, .pcard span, .stat > span {
+  text-wrap: pretty;
 }

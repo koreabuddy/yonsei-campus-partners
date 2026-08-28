@@ -80,6 +80,77 @@
     return ok;
   }
 
+
+  /* ---------- Japanese phrase-aware line breaking ----------
+     Japanese has no spaces, so browsers may break a line anywhere.
+     We mark phrase boundaries with <wbr> and let CSS (word-break: keep-all)
+     restrict breaks to those points only. Korean already breaks on spaces. */
+  if (document.documentElement.lang === "ja") insertJaBreaks();
+
+  function insertJaBreaks() {
+    var SKIP = { SCRIPT: 1, STYLE: 1, CODE: 1, PRE: 1, TEXTAREA: 1, SVG: 1 };
+    var HIRA  = /[ぁ-ゟ]/;
+    var KANJI = /[一-鿿々]/;
+    var KATA  = /[ァ-ヺー]/;
+    var LATIN = /[A-Za-z0-9]/;
+    var SMALL = /[ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮヵヶー々ゝゞヽヾ]/;
+    var AFTER = /[、。，．！？：；）」』】〉》・]/;   // break opportunity after these
+    var BEFORE = /[（「『【〈《]/;                    // break opportunity before these
+    var NO_SPLIT_AFTER = /[おごをのにはがへとでやもかしてただりるれなくいうきつすむぶぬぐずづぷぺ]$/;
+
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        if (!n.nodeValue || !/[぀-ヿ一-鿿]/.test(n.nodeValue)) return NodeFilter.FILTER_REJECT;
+        var p = n.parentNode;
+        while (p && p !== document.body) {
+          if (SKIP[p.nodeName]) return NodeFilter.FILTER_REJECT;
+          p = p.parentNode;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    var nodes = [], n;
+    while ((n = walker.nextNode())) nodes.push(n);
+
+    nodes.forEach(function (node) {
+      var s = node.nodeValue;
+      var parts = [];
+      var buf = "";
+      for (var i = 0; i < s.length; i++) {
+        var cur = s[i], prev = i ? s[i - 1] : "";
+        var brk = false;
+        if (i > 0) {
+          var next = s[i + 1] || "";
+          if (AFTER.test(prev) && !AFTER.test(cur)) brk = true;
+          else if (BEFORE.test(cur)) brk = true;
+          else if (/[おご]/.test(cur) && (KANJI.test(next) || KATA.test(next)) && HIRA.test(prev)) {
+            brk = true;                     /* 御-prefix starts a phrase: こんな|お悩み */
+          }
+          else if (/[をへ]/.test(prev)) {
+            brk = true;                     /* case particles: always a phrase boundary */
+          }
+          else if (HIRA.test(prev) && (KANJI.test(cur) || KATA.test(cur) || LATIN.test(cur))) {
+            /* start of a new content word — unless the kana binds to what follows */
+            if (!NO_SPLIT_AFTER.test(prev) || /[をのにはがへとでやも]/.test(prev)) brk = true;
+            if (/[おご]/.test(prev)) brk = false;   /* 御-prefix: お知らせ / ご提供 */
+          }
+        }
+        if (brk && buf && !SMALL.test(cur)) { parts.push(buf); buf = ""; }
+        buf += cur;
+      }
+      if (buf) parts.push(buf);
+      if (parts.length < 2) return;
+
+      var frag = document.createDocumentFragment();
+      parts.forEach(function (p, idx) {
+        if (idx) frag.appendChild(document.createElement("wbr"));
+        frag.appendChild(document.createTextNode(p));
+      });
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+
   /* ---------- reveal on scroll ---------- */
   var targets = document.querySelectorAll(".reveal");
 
