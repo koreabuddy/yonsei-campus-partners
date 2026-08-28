@@ -34,8 +34,8 @@
     <div class="header__right">
       <nav class="nav" aria-label="주요 메뉴">
         <a href="#services">서비스</a>
+        <a href="#plans">모델 플랜</a>
         <a href="#process">진행 절차</a>
-        <a href="#why">재학생 진행</a>
         <a href="#operation">운영 방식</a>
         <a href="#faq">자주 묻는 질문</a>
       </nav>
@@ -58,6 +58,7 @@
     <div class="wrap">
       <ul>
         <li><a href="#services">서비스</a></li>
+        <li><a href="#plans">모델 플랜</a></li>
         <li><a href="#process">진행 절차</a></li>
         <li><a href="#why">재학생 진행</a></li>
         <li><a href="#operation">운영 방식</a></li>
@@ -95,7 +96,7 @@
 
         <div class="hero__actions">
           <a class="btn btn--gold btn--lg" href="mailto:contact@example.com?subject=%EC%97%B0%EC%84%B8%EB%8C%80%20%EB%B0%A9%EB%AC%B8%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%20%EB%AC%B8%EC%9D%98">문의 및 견적 요청 <span class="btn__arrow" aria-hidden="true">→</span></a>
-          <a class="btn btn--outline-light btn--lg" href="#services">서비스 살펴보기</a>
+          <a class="btn btn--outline-light btn--lg" href="#plans">모델 플랜 보기</a>
         </div>
 
         <ul class="langchips">
@@ -350,8 +351,73 @@
     </div>
   </section>
 
+  <!-- ================= MODEL PLANS ================= -->
+  <section class="section section--white" id="plans" aria-labelledby="plans-title">
+    <div class="wrap">
+      <div class="section__head section__head--center reveal">
+        <span class="eyebrow">Model plans</span>
+        <h2 class="section__title" id="plans-title">선택하실 수 있는 3가지 모델 플랜</h2>
+        <p class="section__lead">자주 이용하시는 구성입니다. 항목을 추가하거나 조정하는 것도 가능합니다.</p>
+      </div>
+
+      <div class="plans reveal">
+
+        <article class="plan">
+          <span class="plan__no">PLAN 01</span>
+          <h3 class="plan__name">쇼트 코스</h3>
+          <span class="plan__time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            소요 약 2시간
+          </span>
+          <ul class="plan__items">
+            <li>캠퍼스 투어</li>
+            <li>학생식당 이용 체험</li>
+          </ul>
+          <p class="plan__desc">체류 시간이 제한된 관광 · 수학여행 단체에 적합한 구성입니다.</p>
+        </article>
+
+        <article class="plan plan--standard">
+          <span class="plan__flag">표준 구성</span>
+          <span class="plan__no">PLAN 02</span>
+          <h3 class="plan__name">스탠다드 코스</h3>
+          <span class="plan__time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            소요 약 3시간 30분
+          </span>
+          <ul class="plan__items">
+            <li>학교 설명회</li>
+            <li>캠퍼스 투어</li>
+            <li>학생식당 이용 체험</li>
+          </ul>
+          <p class="plan__desc">연세대학교 진학 · 유학을 본격적으로 검토하시는 단체를 위한 표준 구성입니다.</p>
+        </article>
+
+        <article class="plan">
+          <span class="plan__no">PLAN 03</span>
+          <h3 class="plan__name">프리미엄 교류 코스</h3>
+          <span class="plan__time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            소요 약 4시간 30분
+          </span>
+          <ul class="plan__items">
+            <li>학교 설명회</li>
+            <li>캠퍼스 투어</li>
+            <li>학부별 소규모 간담회 (멘토링)</li>
+          </ul>
+          <p class="plan__desc">진로 결정에 직결되는, 재학생과의 대화에 가장 많은 시간을 배분한 집중 프로그램입니다.</p>
+        </article>
+
+      </div>
+
+      <p class="plans__foot reveal">
+        비용은 인원, 진행 시간, 진행 언어, 포함 항목에 따라 달라지므로 개별 견적으로 안내드립니다.
+        위 구성 외의 조합도 문의해 주시기 바랍니다.
+      </p>
+    </div>
+  </section>
+
   <!-- ================= PROCESS ================= -->
-  <section class="section section--white" id="process" aria-labelledby="process-title">
+  <section class="section section--bg" id="process" aria-labelledby="process-title">
     <div class="wrap">
       <div class="section__head section__head--center reveal">
         <span class="eyebrow">Process</span>
@@ -576,6 +642,7 @@
       <nav aria-label="푸터 메뉴">
         <ul class="footer__links">
           <li><a href="#services">서비스</a></li>
+          <li><a href="#plans">모델 플랜</a></li>
           <li><a href="#process">진행 절차</a></li>
           <li><a href="#operation">운영 방식</a></li>
           <li><a href="#faq">자주 묻는 질문</a></li>
