@@ -81,14 +81,52 @@
   }
 
 
-  /* ---------- e-mail links (address assembled at runtime, kept out of the HTML) ---------- */
+  /* ---------- e-mail buttons: copy the address (assembled at runtime, kept out
+     of the HTML) and show a toast — never open a mail app ---------- */
   (function () {
-    var u = "thyt" + "1429";
-    var d = "gmail" + ".com";
+    var addr = "rhyt" + "1429" + "@" + "gmail" + ".com";
     var links = document.querySelectorAll("[data-mailto]");
+    if (!links.length) return;
+
+    var toast = null;
+    var toastTimer = null;
+
+    function showToast() {
+      if (!toast) {
+        toast = document.createElement("div");
+        toast.className = "toast";
+        toast.setAttribute("role", "status");
+        toast.setAttribute("aria-live", "polite");
+        toast.textContent = document.documentElement.lang === "ja"
+          ? "メールアドレスがコピーされました"
+          : "메일 주소가 복사되었습니다";
+        document.body.appendChild(toast);
+      }
+      void toast.offsetWidth;
+      toast.classList.add("is-show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(function () {
+        toast.classList.remove("is-show");
+      }, 2400);
+    }
+
+    function copyAddr() {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(addr).then(showToast).catch(function () {
+          if (fallbackCopy(addr)) showToast();
+        });
+      } else if (fallbackCopy(addr)) {
+        showToast();
+      }
+    }
+
     Array.prototype.forEach.call(links, function (a) {
-      var subj = a.getAttribute("data-subject");
-      a.setAttribute("href", "mailto:" + u + "@" + d + (subj ? "?subject=" + subj : ""));
+      a.setAttribute("href", "#");
+      a.setAttribute("role", "button");
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        copyAddr();
+      });
     });
   })();
 

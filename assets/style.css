@@ -1380,3 +1380,39 @@ html[lang="ja"] .logo__text { overflow-wrap: normal; }
 @media (max-width: 479.98px) {
   html[lang="ja"] .logo__text { font-size: 12.5px; }
 }
+
+/* ---------- copy toast ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%) translateY(12px);
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #fff;
+  color: var(--navy-800);
+  border: 1px solid var(--border-2);
+  border-left: 4px solid var(--gold);
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: 12px;
+  box-shadow: 0 12px 34px rgba(0, 46, 99, .28);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease;
+  max-width: calc(100vw - 40px);
+  text-align: center;
+  white-space: nowrap;
+}
+.toast::before {
+  content: "✓";
+  color: var(--gold);
+  font-weight: 800;
+}
+.toast.is-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
