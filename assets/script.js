@@ -81,6 +81,17 @@
   }
 
 
+  /* ---------- e-mail links (address assembled at runtime, kept out of the HTML) ---------- */
+  (function () {
+    var u = "thyt" + "1429";
+    var d = "gmail" + ".com";
+    var links = document.querySelectorAll("[data-mailto]");
+    Array.prototype.forEach.call(links, function (a) {
+      var subj = a.getAttribute("data-subject");
+      a.setAttribute("href", "mailto:" + u + "@" + d + (subj ? "?subject=" + subj : ""));
+    });
+  })();
+
   /* ---------- Japanese phrase-aware line breaking ----------
      Japanese has no spaces, so browsers may break a line anywhere.
      We mark phrase boundaries with <wbr> and let CSS (word-break: keep-all)
