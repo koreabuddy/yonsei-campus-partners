@@ -413,7 +413,12 @@ a { color: inherit; text-decoration: none; transition: color .2s ease; }
 @media (min-width: 640px)  { .hero h1 { font-size: 52px; } }
 @media (min-width: 1024px) { .hero h1 { font-size: 62px; } }
 
-.hero h1 em { font-style: normal; color: var(--gold); }
+.hero h1 em {
+  font-style: normal;
+  color: var(--gold);
+  font-size: 1.22em;
+  letter-spacing: -.035em;
+}
 
 .hero__lead {
   margin-top: 24px;
